@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Form Tambah Barang</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <h1>Isi Data Barang Baru</h1>
+    <a href="katalog.php">← Kembali ke Katalog</a>
+    <div class="Kotak">
+        <form action="simpan_data.php" method="post">
+            <p><strong>Nama Barang:</strong></p>
+            <input type="text" name="namaBarang">
+
+             <p><strong>Spesifikasi:</strong></p>
+            <textarea name="spesifikasiBarang"></textarea>
+
+            <p><strong>Warna:</strong></p>
+            <input type="text" name="warnaBarang">
+
+            <p><strong>Kategori:</strong></p>
+            <select name="kategoriBarang">
+                <option>Elektronik</option>
+                <option>Alat Tulis</option>
+                <option>Lainnya</option>
+            </select>
+
+            <p><strong>Satuan:</strong></p>
+            <select name="satuanBarang">
+                <option>Unit</option>
+                <option>Box</option>
+                <option>Pcs</option>
+            </select>
+
+            <button type="submit">Simpan Data</button>
+           
+        </form>
+    </div>
+    <br>
+
+</body>
+</html>
