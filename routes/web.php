@@ -61,7 +61,7 @@ Route::put('/barang/{id}', function (\Illuminate\Http\Request $request, $id) {
 
 Route::delete('/barang/{id}', function ($id) {
     $barang = \App\Models\Barang::findOrFail($id);
-
+    //$barang delete
     $barang->delete();
 
     return redirect('/');
