@@ -2,12 +2,50 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Models\Barang;
+use App\Http\Controllers\UserController;
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
+
+Route::get('/login', function () {
+    return view('login');
+})->name('login');
+
+Route::post('/login', function (Request $request) {
+
+    $credentials = $request->validate([
+        'email' => 'required|email',
+        'password' => 'required'
+    ]);
+
+    if (Auth::attempt($credentials)) {
+        $request->session()->regenerate();
+
+        return redirect('/');
+    }
+
+    return back()->withErrors([
+        'email' => 'Email atau password salah.'
+    ])->onlyInput('email');
+
+})->name('login.process');
+
+Route::post('/logout', function (Request $request) {
+    Auth::logout();
+
+    $request->session()->invalidate();
+    $request->session()->regenerateToken();
+
+    return redirect('/login');
+})->middleware('auth')->name('logout');
+
 
 Route::get('/', function () {
-    $barangs=Barang::all();
+    $barangs = Barang::all();
 
     return view('katalog', compact('barangs'));
-});
+})->middleware('auth');
+
+
 
 Route::get('/barang/create', function () {
     return view('form');
@@ -66,3 +104,12 @@ Route::delete('/barang/{id}', function ($id) {
 
     return redirect('/');
 })->name('barang.destroy');
+
+Route::resource('users', UserController::class)->only([
+    'index',
+    'create',
+    'store',
+    'edit',
+    'update',
+    'destroy'
+])->middleware(['auth', 'role:admin']);

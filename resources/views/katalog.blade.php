@@ -9,6 +9,13 @@
 <body>
     <h1>Daftar Barang Gudang</h1>
 
+    <form action="{{ route('logout') }}" method="POST">
+    @csrf
+    <button type="submit">Logout</button>
+    </form>
+
+    <a href="{{ route('users.index') }}">Kelola Akun</a>
+
     <a href="{{ route('barang.create') }}">+ Tambah Barang</a>
     <br><br>
 
